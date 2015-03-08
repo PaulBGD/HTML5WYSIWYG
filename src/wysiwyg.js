@@ -54,6 +54,57 @@
         'superscript': 'r'
     };
 
+    var customRoles = {
+        image: function imageRole(object) {
+            var selection = object.getSelection();
+            if (!selection) {
+                console.error('We do not currently support this browser.');
+                return;
+            }
+            var container = object.getSelection().startContainer;
+            var image = new Image();
+            image.onload = function () {
+                var nodes = object.element.childNodes;
+                var length = nodes.length;
+                while (length--) {
+                    var node = nodes[length];
+                    if (node == container) {
+                        container.parentNode.insertBefore(image, container);
+                        return;
+                    }
+                }
+                object.element.appendChild(image);
+            };
+            image.onerror = function () {
+                alert('Invalid image!');
+            };
+            image.src = prompt('Please enter image URL');
+        }
+        /* fixme - nodes get appended weirdly, and we need to be able to undo links
+        ,
+        link: function linkRole(object) {
+            var container = object.getSelection().startContainer;
+            if (container.nodeName == 'A') {
+                // we need to undo it
+                return;
+            }
+            var link = document.createElement('a');
+            link.href = prompt('Please enter link URL');
+            link.appendChild(container);
+            var nodes = object.element.childNodes;
+            var length = nodes.length;
+            while (length--) {
+                var node = nodes[length];
+                if (node == container) {
+                    container.parentNode.insertBefore(link, container);
+                    return;
+                }
+            }
+            object.element.appendChild(link);
+            console.log(object.getSelection());
+        }*/
+    };
+
     /**
      * Creates a new WYSIWYG editor with the specified element
      * @param element the element to use. Can be Vanilla, jQuery, or Zapto
@@ -120,8 +171,7 @@
         }
 
         element.addEventListener('keydown', function (e) {
-            if (e.key == "Shift") {
-                // go away :(
+            if (!e.key || e.key == "Shift") {
                 return;
             }
             for (var property in keys) {
@@ -184,7 +234,10 @@
                 role = 'formatBlock';
                 break;
         }
-        if (global.document && global.document.execCommand) {
+        if (customRoles[role] && window) {
+            var custom = customRoles[role];
+            custom(this);
+        } else if (global.document && global.document.execCommand) {
             global.document.execCommand(role, false, format || null);
         } else {
             // todo, fallback?
@@ -192,7 +245,7 @@
     };
 
     /**
-     * Called when the window is resize.
+     * Called when the window is resized.
      * Will possibly be used to make a better mobile tools bar.
      */
     WYSIWYG.prototype.resize = function () {
@@ -206,6 +259,15 @@
             }
             if (totalWidth > bar.parent.offsetWidth) {
                 // todo better mobile support
+            }
+        }
+    };
+
+    WYSIWYG.prototype.getSelection = function () {
+        if (global.getSelection) {
+            var selection = global.getSelection();
+            if (selection.rangeCount) {
+                return selection.getRangeAt(0);
             }
         }
     };
@@ -224,6 +286,14 @@
      */
     WYSIWYG.prototype.onChange = function () {
 
+    };
+
+    WYSIWYG.addRole = function (name, method) {
+        if (typeof method == "function") {
+            customRoles[name] = method;
+        } else {
+            throw new Error('Invalid method type "' + (typeof method) + '"!');
+        }
     };
 
     if (typeof module !== 'undefined' && module.exports) {

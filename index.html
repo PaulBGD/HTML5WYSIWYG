@@ -7,7 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
         #container {
-            width: 700px;
+            width: 770px;
             max-width: 100%;
             margin: 0 auto;
         }
@@ -29,6 +29,10 @@
             padding: 5px 8px;
         }
 
+        .p {
+            padding-right: 0; /* A fix for the letter p having inbuilt padding? */
+        }
+
         .role:hover {
             color: #555;
         }
@@ -38,6 +42,10 @@
             padding: 10px;
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
+        }
+
+        #editor img {
+            max-width: 100%;
         }
 
         #output {
@@ -51,6 +59,7 @@
 <body>
 <div id="container">
     <h2>Example</h2>
+
     <div class="wysiwyg-bar" data-target="#editor" draggable="true">
         <a href="#" class="role" data-role="undo"><i class="fa fa-undo"></i></a>
         <a href="#" class="role" data-role="redo"><i class="fa fa-repeat"></i></a>
@@ -58,6 +67,8 @@
         <a href="#" class="role" data-role="italic"><i class="fa fa-italic"></i></a>
         <a href="#" class="role" data-role="underline"><i class="fa fa-underline"></i></a>
         <a href="#" class="role" data-role="strikeThrough"><i class="fa fa-strikethrough"></i></a>
+        <a href="#" class="role" data-role="image"><i class="fa fa-image"></i></a>
+        <!--<a href="#" class="role" data-role="link"><i class="fa fa-link"></i></a>-->
         <a href="#" class="role" data-role="justifyLeft"><i class="fa fa-align-left"></i></a>
         <a href="#" class="role" data-role="justifyCenter"><i class="fa fa-align-center"></i></a>
         <a href="#" class="role" data-role="justifyRight"><i class="fa fa-align-right"></i></a>
@@ -68,7 +79,7 @@
         <a href="#" class="role" data-role="insertOrderedList"><i class="fa fa-list-ol"></i></a>
         <a href="#" class="role" data-role="h1">h1</a>
         <a href="#" class="role" data-role="h2">h2</a>
-        <a href="#" class="role" data-role="p">p</a>
+        <a href="#" class="role p" data-role="p">p</a>
         <a href="#" class="role" data-role="subscript"><i class="fa fa-subscript"></i></a>
         <a href="#" class="role" data-role="superscript"><i class="fa fa-superscript"></i></a>
     </div>
