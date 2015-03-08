@@ -1,4 +1,9 @@
 (function (global) {
+
+    /**
+     * A list of keybinds. Currently not modifiable.
+     * @type {{undo: string, redo: string, bold: string, italic: string, underline: string, strikeThrough: string, justifyLeft: string[], justifyCenter: string[], justifyRight: string[], justifyFull: string[], indent: {control: boolean, keys: string[]}, outdent: {control: boolean, keys: *[]}, insertUnorderedList: string, insertOrderedList: string, h1: string, h2: string, h3: string, h4: string, h5: string, p: string, subscript: string, superscript: string}}
+     */
     var keys = {
         'undo': 'z',
         'redo': 'y',
@@ -49,6 +54,11 @@
         'superscript': 'r'
     };
 
+    /**
+     * Creates a new WYSIWYG editor with the specified element
+     * @param element the element to use. Can be Vanilla, jQuery, or Zapto
+     * @constructor
+     */
     function WYSIWYG(element) {
         var $this = this;
         if (typeof element == 'string') {
@@ -133,7 +143,7 @@
                                 if (typeof possiblity == 'string' && possiblity == e.key.toLowerCase() && !e.shiftKey) {
                                     $this.exec(property);
                                     return !!e.preventDefault();
-                                } else if (possiblity.indexOf('shift') > -1  && possiblity.indexOf(e.key.toLowerCase()) > -1 && e.shiftKey) {
+                                } else if (possiblity.indexOf('shift') > -1 && possiblity.indexOf(e.key.toLowerCase()) > -1 && e.shiftKey) {
                                     $this.exec(property);
                                     return !!e.preventDefault();
                                 }
@@ -145,14 +155,22 @@
         }, false);
     }
 
-    WYSIWYG.prototype.handleClick = function (node) {
-        if (!node || !node.getAttribute('data-role')) {
+    /**
+     * Handles the click on an element.
+     * @param element the element that was clicked
+     */
+    WYSIWYG.prototype.handleClick = function (element) {
+        if (!element || !element.getAttribute('data-role')) {
             return;
         }
-        var role = node.getAttribute('data-role');
+        var role = element.getAttribute('data-role');
         this.exec(role);
     };
 
+    /**
+     * Executes a command in the document, if it exists.
+     * @param role the role to execute
+     */
     WYSIWYG.prototype.exec = function (role) {
         var format;
         switch (role) {
@@ -173,6 +191,10 @@
         }
     };
 
+    /**
+     * Called when the window is resize.
+     * Will possibly be used to make a better mobile tools bar.
+     */
     WYSIWYG.prototype.resize = function () {
         for (var i = 0; i < this.bars.length; i++) {
             var bar = this.bars[i];
@@ -188,10 +210,18 @@
         }
     };
 
+    /**
+     * Returns the raw HTML of the editor
+     * @returns {string|document.getElementById.innerHTML|*}
+     */
     WYSIWYG.prototype.getHTML = function () {
         return this.element.innerHTML;
     };
 
+    /**
+     * Abstract.
+     * Called when the editor is changed.
+     */
     WYSIWYG.prototype.onChange = function () {
 
     };
