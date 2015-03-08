@@ -16,7 +16,7 @@ Handles the click on an element.
 
 * **element** the element that was clicked
 
-## exec(the)
+## exec(role)
 
 Executes a command in the document, if it exists.
 
@@ -41,6 +41,15 @@ Returns the raw HTML of the editor
 
 Abstract.
 Called when the editor is changed.
+
+## addRole(name, method)
+
+Adds a role that can be used in the menu bar.
+
+### Params:
+
+* **name** the name of the roll
+* **method** the method to be called
 
 <!-- End src\wysiwyg.js -->
 

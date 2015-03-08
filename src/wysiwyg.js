@@ -288,6 +288,11 @@
 
     };
 
+    /**
+     * Adds a role that can be used in the menu bar.
+     * @param name the name of the role
+     * @param method the method to be called
+     */
     WYSIWYG.addRole = function (name, method) {
         if (typeof method == "function") {
             customRoles[name] = method;
