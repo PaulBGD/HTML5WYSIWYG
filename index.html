@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML5WYSIWYG Demo</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        #container {
+            width: 700px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .wysiwyg-bar {
+            border: 2px solid #979797;
+            border-bottom: 0;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+        }
+
+        .role {
+            color: #000;
+            display: inline-block;
+            text-decoration: none;
+            font-size: 20px;
+            width: 20px;
+            padding: 5px 8px;
+        }
+
+        .role:hover {
+            color: #555;
+        }
+
+        #editor {
+            border: 2px solid #979797;
+            padding: 10px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        #output {
+            border: 2px solid #979797;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h2>Example</h2>
+    <div class="wysiwyg-bar" data-target="#editor" draggable="true">
+        <a href="#" class="role" data-role="undo"><i class="fa fa-undo"></i></a>
+        <a href="#" class="role" data-role="redo"><i class="fa fa-repeat"></i></a>
+        <a href="#" class="role" data-role="bold"><i class="fa fa-bold"></i></a>
+        <a href="#" class="role" data-role="italic"><i class="fa fa-italic"></i></a>
+        <a href="#" class="role" data-role="underline"><i class="fa fa-underline"></i></a>
+        <a href="#" class="role" data-role="strikeThrough"><i class="fa fa-strikethrough"></i></a>
+        <a href="#" class="role" data-role="justifyLeft"><i class="fa fa-align-left"></i></a>
+        <a href="#" class="role" data-role="justifyCenter"><i class="fa fa-align-center"></i></a>
+        <a href="#" class="role" data-role="justifyRight"><i class="fa fa-align-right"></i></a>
+        <a href="#" class="role" data-role="justifyFull"><i class="fa fa-align-justify"></i></a>
+        <a href="#" class="role" data-role="indent"><i class="fa fa-indent"></i></a>
+        <a href="#" class="role" data-role="outdent"><i class="fa fa-outdent"></i></a>
+        <a href="#" class="role" data-role="insertUnorderedList"><i class="fa fa-list-ul"></i></a>
+        <a href="#" class="role" data-role="insertOrderedList"><i class="fa fa-list-ol"></i></a>
+        <a href="#" class="role" data-role="h1">h1</a>
+        <a href="#" class="role" data-role="h2">h2</a>
+        <a href="#" class="role" data-role="p">p</a>
+        <a href="#" class="role" data-role="subscript"><i class="fa fa-subscript"></i></a>
+        <a href="#" class="role" data-role="superscript"><i class="fa fa-superscript"></i></a>
+    </div>
+    <div id="editor">
+        <h1>Hi there</h1>
+    </div>
+    <h2>Output</h2>
+
+    <div id="output"></div>
+</div>
+<script src="src/wysiwyg.js"></script>
+<script>
+    var wysiwyg = new WYSIWYG('#editor');
+    wysiwyg.onChange = function () {
+        document.getElementById('output').innerHTML = escapeHtml(this.getHTML());
+    };
+
+    var entityMap = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': '&quot;',
+        "'": '&#39;',
+        "/": '&#x2F;'
+    };
+
+    /*
+     * Mustache 1.1.0 - MIT
+     */
+    function escapeHtml(string) {
+        return String(string).replace(/[&<>"'\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+</script>
+</body>
+</html>

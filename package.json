@@ -1,0 +1,27 @@
+{
+  "name": "HTML5WYSIWYG",
+  "version": "0.0.1",
+  "description": "A simple vanilla solution for a WYSIWYG editor",
+  "keywords": [
+    "wysiwyg",
+    "vanilla",
+    "html5",
+    "browserify"
+  ],
+  "homepage": "https://github.com/BurnGames/HTML5WYSIWYG",
+  "bugs": {
+    "url": "https://github.com/BurnGames/HTML5WYSIWYG/issues",
+    "email": "paul@burngames.net"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Paul Sauve",
+    "email": "paul@burngames.net",
+    "url": "https://paulb.gd"
+  },
+  "main": "src/wysiwyg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BurnGames/HTML5WYSIWYG.git"
+  }
+}
