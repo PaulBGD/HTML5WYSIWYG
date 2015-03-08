@@ -1,10 +1,4 @@
-
-
 <!-- Start src\wysiwyg.js -->
-
-## keys
-
-A list of keybinds. Currently not modifiable.
 
 ## WYSIWYG
 
@@ -12,15 +6,15 @@ Creates a new WYSIWYG editor with the specified element
 
 ### Params:
 
-* **lemen** *the* element to use. Can be Vanilla, jQuery, or Zapto
+* **element** the element to use. Can be Vanilla, jQuery, or Zapto
 
-## handleClick(the)
+## handleClick(element)
 
 Handles the click on an element.
 
 ### Params:
 
-* **lemen** *the* element that was clicked
+* **element** the element that was clicked
 
 ## exec(the)
 
@@ -28,7 +22,7 @@ Executes a command in the document, if it exists.
 
 ### Params:
 
-* **ol** *the* role to execute
+* **role** the role to execute
 
 ## resize()
 
