@@ -15,4 +15,4 @@ var wysiwyg = new WYSIWYG($('#editor'));
 
 More documentation can be found [here](methods.md).
 
-# [Demo](http://burngames.github.io/HTML5WYSIWYG/)
+# [Demo](https://paulbgd.github.io/HTML5WYSIWYG/)
